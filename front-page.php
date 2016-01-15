@@ -37,7 +37,9 @@ get_header(); ?>
 				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 				 */
 				get_template_part( 'template-parts/content', get_post_format() );
-
+            the_field('highlight_1');
+            the_field('highlight_2');
+            the_field('highlight_3');
 			endwhile;
 
 			the_posts_navigation();
@@ -48,6 +50,63 @@ get_header(); ?>
 
 		endif; ?>
 
+                    <?php
+
+  // $args = array('name' => "features");
+   $featured_page = new WP_Query('name=features&post_type=page');
+
+   if($featured_page->have_posts()) : 
+      while($featured_page->have_posts()) : 
+         $featured_page->the_post();
+?>
+                        <article id="page-<?php the_ID(); ?>" <?php post_class( 'features dark'); ?>>
+                            <h1><?php the_title() ?></h1>
+                            <div class='post-content'>
+                                <?php the_content() ?>
+                            </div>
+                        </article>
+                        <?php
+      endwhile;
+   else: 
+?>
+
+                            Oops, there are no posts.
+
+                            <?php
+   endif;
+?>
+
+                                <div id="news">
+                                    <?php
+
+   //$args = array('posts_per_page' => 3);
+   $posts = new WP_Query("posts_per_page=3");
+
+   if($posts->have_posts()) : 
+      while($posts->have_posts()) : 
+         $posts->the_post();
+?>
+                                        <article>
+                                            <h1><?php the_title() ?></h1>
+                                            <p>
+                                                <?php the_time('F j, Y'); ?>
+                                            </p>
+                                            <div class='post-content'>
+                                                <?php the_content() ?>
+                                            </div>
+                                        </article>
+
+                                        <?php
+      endwhile;
+   else: 
+?>
+
+                                            Oops, there are no posts.
+
+                                            <?php
+   endif;
+?>
+                                </div>
         </main>
         <!-- #main -->
     </div>
