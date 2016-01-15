@@ -28,8 +28,8 @@
                 <?php esc_html_e( 'Skip to content', 'advweb2a1' ); ?>
             </a>
 
-            <header id="masthead" class="site-header" role="banner">
-                <div class="site-branding">
+            <header id="masthead" class="site-header row" role="banner">
+                <div class="site-branding cute-4-tablet">
                     <?php
 			if ( is_front_page() && is_home() ) : ?>
                         <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
@@ -51,13 +51,14 @@
 			endif; ?>
                 </div>
                 <!-- .site-branding -->
-
+                <div class="cute-8-phone">
                 <nav id="site-navigation" class="main-navigation" role="navigation">
                     <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
                         <?php esc_html_e( 'Primary Menu', 'advweb2a1' ); ?>
                     </button>
                     <?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
                 </nav>
+                </div>
                 <!-- #site-navigation -->
             </header>
             <!-- #masthead -->

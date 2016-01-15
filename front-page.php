@@ -14,104 +14,159 @@
 
 get_header(); ?>
 
-    <div id="primary" class="content-area cute-8-tablet">
+    <div id="primary" class="content-area">
         <main id="main" class="site-main" role="main">
+           
+           <!--/////////// Home Page Content ///////////-->
+            <section id="intro">
+                    <?php
+                if ( have_posts() ) : while ( have_posts() ) : the_post();
+?>
+                <div class="cute-12-phone"><?php the_content(); ?></div>
 
+                    <div class="cute-4-tablet">
+                        <?php the_field('highlight_1'); ?>
+                    </div>
+                    <div class="cute-4-tablet">
+                        <?php the_field('highlight_2'); ?>
+                    </div>
+                    <div class="cute-4-tablet">
+                        <?php the_field('highlight_3'); ?>
+                    </div>
+                    <?php
+                    endwhile; 
+                else : 
+                    get_template_part( 'template-parts/content', 'none' );      
+                endif; ?>
+            </section>
+            <!--/////////// Features Page Content ///////////-->
+            
             <?php
-		if ( have_posts() ) :
 
-			if ( is_home() && ! is_front_page() ) : ?>
-                <header>
-                    <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-                </header>
+           $featured_page = new WP_Query('name=features&post_type=page');
 
+           if($featured_page->have_posts()) : 
+              while($featured_page->have_posts()) : 
+                $featured_page->the_post();
+                    ?>
+                <section id="features" <?php post_class( 'cute-12-phone'); ?>>
+                    <h1><?php the_title() ?></h1>
+                    <div class='post-content'>
+                        <?php the_content() ?>
+                    </div>
+                </section>
                 <?php
-			endif;
+              endwhile;
+           else: 
+        ?>
+            Oops, there are no posts.
 
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
+        <?php
+           endif;
+        ?>
+<!--/////////// Testimonials Page Content ///////////-->
+<?php
 
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_format() );
-            the_field('highlight_1');
-            the_field('highlight_2');
-            the_field('highlight_3');
-			endwhile;
+           $testimonials_page = new WP_Query('name=testimonials&post_type=page');
 
-			the_posts_navigation();
+           if($testimonials_page->have_posts()) : 
+              while($testimonials_page->have_posts()) : 
+                $testimonials_page->the_post();
+                    ?>
+                <section id="testimonials" <?php post_class( 'cute-12-phone'); ?>>
+                    <h1><?php the_title() ?></h1>
+                    <div class='post-content'>
+                        <?php the_content() ?>
+                    </div>
+                </section>
+                <?php
+              endwhile;
+           else: 
+        ?>
+            Oops, there are no posts.
 
-		else :
+        <?php
+           endif;
+        ?>
+<!--/////////// Latest 3 Blog Posts ///////////-->
 
-			get_template_part( 'template-parts/content', 'none' );
+            <section id="news">
+                <h1 class="cute-12-phone">News</h1>
+            <?php
 
-		endif; ?>
+               $posts = new WP_Query("posts_per_page=3");
+
+               if($posts->have_posts()) : 
+                  while($posts->have_posts()) : 
+                     $posts->the_post();
+            ?>
+                    <article class="cute-4-tablet">
+                        <h2><?php the_title() ?></h2>
+                        <p>
+                            <?php the_time('F j, Y'); ?>
+                        </p>
+                        <div class='post-content'>
+                            <?php the_content('Continue Reading &raquo;') ?>
+                        </div>
+                    </article>
 
                     <?php
+                  endwhile;
+               else: 
+            ?>
 
-  // $args = array('name' => "features");
-   $featured_page = new WP_Query('name=features&post_type=page');
+                Oops, there are no posts.
 
-   if($featured_page->have_posts()) : 
-      while($featured_page->have_posts()) : 
-         $featured_page->the_post();
+                <?php
+               endif;
 ?>
-                        <article id="page-<?php the_ID(); ?>" <?php post_class( 'features dark'); ?>>
-                            <h1><?php the_title() ?></h1>
-                            <div class='post-content'>
-                                <?php the_content() ?>
-                            </div>
-                        </article>
-                        <?php
-      endwhile;
-   else: 
-?>
+            </section>
+            
+<!--/////////// Contact Page Content ///////////-->
+<?php
 
-                            Oops, there are no posts.
+           $contact_page = new WP_Query('name=contact&post_type=page');
 
-                            <?php
-   endif;
-?>
+           if($contact_page->have_posts()) : 
+              while($contact_page->have_posts()) : 
+                $contact_page->the_post();
+                    ?>
+                <section id="contact" <?php post_class( 'cute-12-phone'); ?>>
+                    <h1><?php the_title() ?></h1>
+                    <div class='post-content'>
+                        <?php the_content() ?>
+                    </div>
+                    
+                    <div class="cute-6-tablet">
+                        <?php the_field('contact_form');?>
+                    </div>
+                    <div class="cute-6-tablet">
+                        <?php 
 
-                                <div id="news">
-                                    <?php
+                        $location = get_field('location_map');
 
-   //$args = array('posts_per_page' => 3);
-   $posts = new WP_Query("posts_per_page=3");
+                        if( !empty($location) ):
+                        ?>
+                        <div class="acf-map">
+                            <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"></div>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </section>
+                <?php
+              endwhile;
+           else: 
+        ?>
+            Oops, there are no posts.
 
-   if($posts->have_posts()) : 
-      while($posts->have_posts()) : 
-         $posts->the_post();
-?>
-                                        <article>
-                                            <h1><?php the_title() ?></h1>
-                                            <p>
-                                                <?php the_time('F j, Y'); ?>
-                                            </p>
-                                            <div class='post-content'>
-                                                <?php the_content() ?>
-                                            </div>
-                                        </article>
-
-                                        <?php
-      endwhile;
-   else: 
-?>
-
-                                            Oops, there are no posts.
-
-                                            <?php
-   endif;
-?>
-                                </div>
+        <?php
+           endif;
+        ?>
         </main>
         <!-- #main -->
     </div>
     <!-- #primary -->
 
     <?php
-get_sidebar();
+//get_sidebar();
 get_footer();
