@@ -114,17 +114,36 @@ add_action( 'widgets_init', 'advweb2a1_widgets_init' );
  * Enqueue scripts and styles.
  */
 function advweb2a1_scripts() {
+    //Main stylesheet
 	wp_enqueue_style( 'advweb2a1-style', get_stylesheet_uri() );
     
+    //Grid
     wp_enqueue_style('cutegrids', get_stylesheet_directory_uri()."/cutegrids.css");
 
+    //Underscores scripts
 	wp_enqueue_script( 'advweb2a1-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
 	wp_enqueue_script( 'advweb2a1-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
     
+    //Google Maps
     wp_enqueue_script( 'google-map', 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false', array(), '3', true );
-	wp_enqueue_script( 'google-map-init', get_template_directory_uri() . '/js/google-maps.js', array('google-map', 'jquery'), '0.1', true );
+    
+    //Smooth scroll
+    wp_enqueue_script( 'smoothscroll', get_template_directory_uri().'/js/jquery.smooth-scroll.min.js', array('jquery'), '1.5.2', true );
+    
+    //ScrollMagic Scripts
+    wp_register_script('scroll-magic', get_stylesheet_directory_uri()."/js/ScrollMagic.min.js", array("jquery"), "2.0.5", true);
+    
+    wp_register_script('gsap', get_stylesheet_directory_uri()."/js/plugins/animation.gsap.min.js", array("scroll-magic"), "2.0.5", true);
 
+    wp_register_script('tweenmax', get_stylesheet_directory_uri()."/js/plugins/TweenMax.min.js", array("gsap"), "1.15.1", true);
+
+//    wp_enqueue_script('scroll-magic-indicators', get_stylesheet_directory_uri()."/js/plugins/debug.addIndicators.min.js", array("scroll-magic"), "2.0.5", true);
+    
+    //Custom scripts
+	wp_enqueue_script( 'scripts-init', get_template_directory_uri() . '/js/scripts.js', array('google-map', 'smoothscroll', 'scroll-magic', 'gsap', 'tweenmax', 'jquery'), '0.1', true );
+    
+    //Comments scripts
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}

@@ -18,7 +18,7 @@ get_header(); ?>
         <main id="main" class="site-main" role="main">
            
            <!--/////////// Home Page Content ///////////-->
-            <section id="intro">
+            <section id="intro" class="clearfix">
                     <?php
                 if ( have_posts() ) : while ( have_posts() ) : the_post();
 ?>
@@ -90,8 +90,9 @@ get_header(); ?>
         ?>
 <!--/////////// Latest 3 Blog Posts ///////////-->
 
-            <section id="news">
-                <h1 class="cute-12-phone">News</h1>
+            <section id="news" class="cute-12-phone">
+                <h1>News</h1>
+                <div class="row">
             <?php
 
                $posts = new WP_Query("posts_per_page=3");
@@ -119,7 +120,8 @@ get_header(); ?>
 
                 <?php
                endif;
-?>
+                    ?>        
+                </div>
             </section>
             
 <!--/////////// Contact Page Content ///////////-->

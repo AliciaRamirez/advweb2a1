@@ -27,7 +27,7 @@
             <a class="skip-link screen-reader-text" href="#content">
                 <?php esc_html_e( 'Skip to content', 'advweb2a1' ); ?>
             </a>
-
+            <div class="outer-header">
             <header id="masthead" class="site-header row" role="banner">
                 <div class="site-branding cute-4-tablet">
                     <?php
@@ -61,6 +61,7 @@
                 </div>
                 <!-- #site-navigation -->
             </header>
+            </div>
             <!-- #masthead -->
 
             <div id="content" class="site-content row">

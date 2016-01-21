@@ -145,13 +145,69 @@ function center_map( map ) {
 */
 
 $(document).ready(function(){
-
+    //Google map initialization
 	$('.acf-map').each(function(){
 
 		render_map( $(this) );
 
 	});
+    
+    //Smooth Scroll initialization
+    $('#site-navigation a').smoothScroll({
+                offset: -100
+            });
+    
+    //ScrollMagic initialiation and setup
+    var controller = new ScrollMagic.Controller();
+    new ScrollMagic.Scene({
+            triggerElement: "#intro",                   
+            triggerHook: 'onLeave',
+            offset: -150        
+        })
+        .setClassToggle("#menu-item-4", "active")
+        .duration($('#intro').height())
+//        .addIndicators()
+        .addTo(controller)
 
+    new ScrollMagic.Scene({
+            triggerElement: "#features",
+            triggerHook: 'onLeave',
+            offset: -150
+        })
+        .setClassToggle("#menu-item-35", "active")
+//        .addIndicators()
+        .duration($('#features').height())
+        .addTo(controller)
+
+    new ScrollMagic.Scene({
+            triggerElement: "#testimonials",
+            triggerHook: 'onLeave',
+            offset: -150
+        })
+        .setClassToggle("#menu-item-38", "active")
+        .duration($('#testimonials').height())
+//        .addIndicators()
+        .addTo(controller)
+
+    new ScrollMagic.Scene({
+            triggerElement: "#news",
+            triggerHook: 'onLeave',
+            offset: -150
+        })
+        .setClassToggle("#menu-item-36", "active")
+        .duration($('#news').height())
+//        .addIndicators()
+        .addTo(controller)
+    
+        new ScrollMagic.Scene({
+            triggerElement: "#contact",
+            triggerHook: 'onLeave',
+            offset: -150
+        })
+        .setClassToggle("#menu-item-37", "active")
+        .duration($('#contact').height())
+//        .addIndicators()
+        .addTo(controller)
 });
 
 })(jQuery);
