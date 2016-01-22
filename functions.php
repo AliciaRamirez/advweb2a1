@@ -119,7 +119,7 @@ function advweb2a1_scripts() {
     
     //Grid
     wp_enqueue_style('cutegrids', get_stylesheet_directory_uri()."/cutegrids.css");
-
+    
     //Underscores scripts
 	wp_enqueue_script( 'advweb2a1-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 

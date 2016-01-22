@@ -24,15 +24,15 @@ get_header(); ?>
 ?>
                 <div class="cute-12-phone"><?php the_content(); ?></div>
 
-                    <div class="cute-4-tablet">
+                    <aside class="cute-4-tablet highlight">
                         <?php the_field('highlight_1'); ?>
-                    </div>
-                    <div class="cute-4-tablet">
+                    </aside>
+                    <aside class="cute-4-tablet highlight">
                         <?php the_field('highlight_2'); ?>
-                    </div>
-                    <div class="cute-4-tablet">
+                    </aside>
+                    <aside class="cute-4-tablet highlight">
                         <?php the_field('highlight_3'); ?>
-                    </div>
+                    </aside>
                     <?php
                     endwhile; 
                 else : 
